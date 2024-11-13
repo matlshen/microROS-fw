@@ -14,10 +14,10 @@ void bsp_timer_init() {
     bsp_timer.timer_config.direction = GPTIMER_COUNT_UP;
     bsp_timer.timer_config.resolution_hz = 1 * 1000 * 1000; // 1 MHz
 
-    gptimer_new_timer(&timer_config, &gptimer);
-    gptimer_enable(gptimer);
+    gptimer_new_timer(&bsp_timer.timer_config, &bsp_timer.gptimer);
+    gptimer_enable(bsp_timer.gptimer);
 }
 
-bsp_timer_start() {
-    gptimer_start(gptimer);
+void bsp_timer_start() {
+    gptimer_start(bsp_timer.gptimer);
 }

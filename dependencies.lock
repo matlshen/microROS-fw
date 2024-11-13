@@ -18,5 +18,5 @@ direct_dependencies:
 - espressif/esp-idf-cxx
 - idf
 manifest_hash: fa7c6720f6e072eef205b7db88671f1ed119e90c8a170e19e13f0ea7f340bd5a
-target: esp32
+target: esp32s2
 version: 2.0.0
