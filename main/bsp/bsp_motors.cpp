@@ -63,7 +63,7 @@ void Motors::internalSetMotorSpeed(int motor, int speed) {
 }
 
 void Motors::setObstacle(int direction, bool obstacle) {
-    if (obstacle <= BACK) {
+    if (direction <= BACK) {
         _obstacle[direction] = obstacle;
     }
 }

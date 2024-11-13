@@ -68,9 +68,39 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 		// RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
 		// msg.data++;
 
+		uint32_t dist_front = DistanceSensor::measureDistance(DistanceSensor::front);
+		uint32_t dist_back = DistanceSensor::measureDistance(DistanceSensor::back);
+		uint32_t dist_left = DistanceSensor::measureDistance(DistanceSensor::left);
+		uint32_t dist_right = DistanceSensor::measureDistance(DistanceSensor::right);
+
+		// Set obstacle
+		if (dist_front < 300) {
+			Motors::setObstacle(Motors::FRONT, true);
+			log::info("Obstacle detected in front");
+		}
+		else {
+			Motors::setObstacle(Motors::FRONT, false);
+		}
+
+		if (dist_left < 300) {
+			Motors::setObstacle(Motors::LEFT, true);
+			log::info("Obstacle detected in left");
+		}
+		else if (dist_left > 1000) {
+			Motors::setObstacle(Motors::LEFT, false);
+		}
+
+
 		// Write distance to log
-		log::info("Distance: %lu", 
-				  DistanceSensor::measureDistance(DistanceSensor::front));
+		const int log_period = 10;
+		static int log_counter = 0;
+		if (log_counter % log_period == 0) {
+			log::info("Front Distance: %lumm", dist_front);
+			log::info("Back Distance: %lumm", dist_back);
+			log::info("Left Distance: %lumm", dist_left);
+			log::info("Right Distance: %lumm", dist_right);
+		}
+		log_counter++;
 	}
 }
 
@@ -95,7 +125,7 @@ void micro_ros_task(void * arg)
 	
 	// create timer,
 	rcl_timer_t timer;
-	const unsigned int timer_timeout = 1000;
+	const unsigned int timer_timeout = 100;
 	RCCHECK(rclc_timer_init_default(
 		&timer,
 		&support,

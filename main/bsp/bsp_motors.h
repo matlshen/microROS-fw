@@ -5,8 +5,7 @@
 #include "driver/ledc.h"
 
 class Motors {
-    static inline bool _obstacle[4] = {false, false, false, false};
-private:
+public:
     enum {
         FRONT = 0,
         LEFT = 1,
@@ -18,14 +17,15 @@ private:
         BACK_RIGHT = 7,
     };
 
-    static constexpr gpio_num_t FL1_PIN = GPIO_NUM_4;
-    static constexpr gpio_num_t FL2_PIN = GPIO_NUM_5;
-    static constexpr gpio_num_t FR1_PIN = GPIO_NUM_6;
-    static constexpr gpio_num_t FR2_PIN = GPIO_NUM_7;
-    static constexpr gpio_num_t BL1_PIN = GPIO_NUM_15;
-    static constexpr gpio_num_t BL2_PIN = GPIO_NUM_16;
-    static constexpr gpio_num_t BR1_PIN = GPIO_NUM_17;
-    static constexpr gpio_num_t BR2_PIN = GPIO_NUM_18;
+private:
+    static constexpr gpio_num_t FL1_PIN = GPIO_NUM_8;
+    static constexpr gpio_num_t FL2_PIN = GPIO_NUM_3;
+    static constexpr gpio_num_t FR1_PIN = GPIO_NUM_9;
+    static constexpr gpio_num_t FR2_PIN = GPIO_NUM_46;
+    static constexpr gpio_num_t BL1_PIN = GPIO_NUM_16;
+    static constexpr gpio_num_t BL2_PIN = GPIO_NUM_15;
+    static constexpr gpio_num_t BR1_PIN = GPIO_NUM_18;
+    static constexpr gpio_num_t BR2_PIN = GPIO_NUM_17;
 
     static constexpr gpio_num_t getForwardMotorPin(int motor) {
         switch (motor) {
@@ -68,6 +68,7 @@ private:
         }
         return LEDC_CHANNEL_MAX;
     }
+    static inline bool _obstacle[4] = {false, false, false, false};
     
 private:
     static void init(int direction, int speed);

@@ -4,6 +4,7 @@
 
 uint32_t DistanceSensor::internalMeasureDistance(int direction) {
     gpio_num_t trig_pin, echo_pin;
+
     switch (direction) {
         case front:
             trig_pin = TRIG_PIN_FRONT;
@@ -56,6 +57,12 @@ uint32_t DistanceSensor::internalMeasureDistance(int direction) {
 uint32_t DistanceSensor::init(int direction) {
     gpio_set_direction(TRIG_PIN_FRONT, GPIO_MODE_OUTPUT);
     gpio_set_direction(ECHO_PIN_FRONT, GPIO_MODE_INPUT);
+    gpio_set_direction(TRIG_PIN_BACK, GPIO_MODE_OUTPUT);
+    gpio_set_direction(ECHO_PIN_BACK, GPIO_MODE_INPUT);
+    gpio_set_direction(TRIG_PIN_LEFT, GPIO_MODE_OUTPUT);
+    gpio_set_direction(ECHO_PIN_LEFT, GPIO_MODE_INPUT);
+    gpio_set_direction(TRIG_PIN_RIGHT, GPIO_MODE_OUTPUT);
+    gpio_set_direction(ECHO_PIN_RIGHT, GPIO_MODE_INPUT);
 
     _measure_func = internalMeasureDistance;
     return measureDistance(direction);
